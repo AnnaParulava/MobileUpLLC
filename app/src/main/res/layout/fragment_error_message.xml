@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.ErrorMessageFragment">
+
+
+    <ImageView
+        android:id="@+id/imError"
+        android:layout_width="@dimen/iconError"
+        android:layout_height="@dimen/iconError"
+        android:src="@drawable/err_bit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/tvError"
+        android:layout_width="202dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/plus_jakarta_sans_regular"
+        android:text="@string/error_message"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/imError"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintStart_toStartOf="@+id/imError"
+        app:layout_constraintTop_toBottomOf="@+id/imError" />
+
+    <Button
+        android:id="@+id/btnError"
+        style="@style/buttonTextStyle"
+        android:layout_width="@dimen/btnWidth"
+        android:layout_height="wrap_content"
+        android:text="@string/try_again"
+        android:layout_marginTop="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/tvError"
+        app:layout_constraintHorizontal_bias="0.518"
+        app:layout_constraintStart_toStartOf="@+id/tvError"
+        app:layout_constraintTop_toBottomOf="@+id/tvError"
+        app:layout_constraintVertical_bias="0.093" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_message">Случилась какая-то ошибка :( Попробуем снова?</string>
+    <string name="error_message">Случилась какая-то ошибка :(\n Попробуем снова?</string>
     <string name="try_again">ПОПРОБОВАТЬ</string>
     <string name="usd">USD</string>
     <string name="eur">EUR</string>List of cryptocurrencies
