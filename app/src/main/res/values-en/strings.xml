@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MobileUpLLC</string>
+    <string name="error_message">Some error happened :( Shall we try again?</string>
+    <string name="try_again">TRY AGAIN</string>
+    <string name="usd">USD</string>
+    <string name="eur">EUR</string>
+    <string name="cryptocurrencies_list">List of cryptocurrencies</string>
+    <string name="description">Description</string>
+    <string name="categories">Categories</string>
+</resources>
