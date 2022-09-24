@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/cryptocurr_icon"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="@dimen/imgCrypto"
+        android:layout_height="@dimen/imgCrypto"
         tools:ignore="ContentDescription" />
 
     <LinearLayout

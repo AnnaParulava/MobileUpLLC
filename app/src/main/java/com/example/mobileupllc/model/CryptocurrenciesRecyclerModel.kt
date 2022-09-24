@@ -8,6 +8,10 @@ data class CryptocurrenciesRecyclerModel(
     @Expose
      val id: String,
 
+    @SerializedName("image")
+    @Expose
+    val image: String,
+
     @SerializedName("symbol")
     @Expose
      val symbol: String,
