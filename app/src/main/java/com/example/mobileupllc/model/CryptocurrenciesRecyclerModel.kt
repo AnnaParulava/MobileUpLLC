@@ -3,27 +3,24 @@ package com.example.mobileupllc.model
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class CryptocurrenciesRecyclerModel {
+data class CryptocurrenciesRecyclerModel(
     @SerializedName("id")
     @Expose
-    private val id: String? = null
+     val id: String,
 
     @SerializedName("symbol")
     @Expose
-    private val symbol: String? = null
+     val symbol: String,
 
     @SerializedName("name")
     @Expose
-    private val name: String? = null
+     val name: String,
 
     @SerializedName("current_price")
     @Expose
-    private val current_price: Double? = null
+     val current_price: Double,
 
     @SerializedName("price_change_percentage_24h")
     @Expose
-    private val price_change_percentage_24h: Double? = null
-
-
-
-}
+     val price_change_percentage_24h: Double
+)
