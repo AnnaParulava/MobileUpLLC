@@ -2,4 +2,5 @@
 <resources>
     <dimen name="iconError">120dp</dimen>
     <dimen name="btnWidth">175dp</dimen>
+    <dimen name="pbSize">44dp</dimen>
 </resources>

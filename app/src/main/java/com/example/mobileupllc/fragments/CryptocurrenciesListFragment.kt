@@ -15,7 +15,7 @@ class CryptocurrenciesListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        addFragmentToFragment(ErrorMessageFragment.newInstance())
+        addFragmentToFragment(CryptocurrenciesRecyclerFragment.newInstance())
         return inflater.inflate(R.layout.fragment_cryptocurrencies_list, container, false)
     }
 
