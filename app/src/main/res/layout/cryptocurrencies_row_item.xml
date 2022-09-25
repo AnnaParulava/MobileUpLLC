@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="15dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal">
 
@@ -15,15 +18,18 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="7dp"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/cryptocurr_title"
+            style="@style/titleCryptItemTextStyle"
             android:layout_width="55dp"
             android:layout_height="20dp" />
 
         <TextView
             android:id="@+id/cryptocurr_symbol"
+            style="@style/symbolCryptItemTextStyle"
             android:layout_width="55dp"
             android:layout_height="20dp" />
     </LinearLayout>
@@ -37,12 +43,14 @@
 
         <TextView
             android:id="@+id/cryptocurr_current_price"
-            android:layout_width="55dp"
+            style="@style/priceCryptItemTextStyle"
+            android:layout_width="wrap_content"
             android:layout_height="20dp" />
 
         <TextView
             android:id="@+id/cryptocurr_change_percentage"
-            android:layout_width="55dp"
+            style="@style/percentCryptItemTextStyle"
+            android:layout_width="wrap_content"
             android:layout_height="20dp" />
     </LinearLayout>
 </LinearLayout>

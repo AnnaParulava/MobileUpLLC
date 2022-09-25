@@ -8,8 +8,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Path
 
 import retrofit2.http.GET
+import retrofit2.http.Query
 
-val BASE_URL = "https://api.coingecko.com/api/v3/"
+const val BASE_URL = "https://api.coingecko.com/api/v3/"
 
 val retrofit: Retrofit = Retrofit.Builder()
     .baseUrl(BASE_URL)
@@ -21,8 +22,8 @@ val service: JsonAPI = retrofit.create(JsonAPI::class.java)
 object Api {
     val call: JsonAPI by lazy{service}
 }
-//{vs_currency}
+
 interface JsonAPI {
-    @GET("coins/markets?vs_currency=usd")
-    fun getCryptoList(): Call<List<CryptocurrenciesRecyclerModel>>
+    @GET("coins/markets")
+    fun getCryptoList(@Query("vs_currency") vs_currency: String?): Call<List<CryptocurrenciesRecyclerModel>>
 }

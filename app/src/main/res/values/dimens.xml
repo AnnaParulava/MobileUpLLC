@@ -4,4 +4,7 @@
     <dimen name="btnWidth">175dp</dimen>
     <dimen name="pbSize">44dp</dimen>
     <dimen name="imgCrypto">40dp</dimen>
+    <dimen name="chipHeight">45dp</dimen>
+    <dimen name="chipWidth">85dp</dimen>
 </resources>
+

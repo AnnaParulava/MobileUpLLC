@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/cryptocurrenciesListFragment">
+
+    <fragment
+        android:id="@+id/cryptocurrenciesListFragment"
+        android:name="com.example.mobileupllc.fragments.CryptocurrenciesListFragment"
+        android:label="fragment_cryptocurrencies_list"
+        tools:layout="@layout/fragment_cryptocurrencies_list" >
+        <action
+            android:id="@+id/action_cryptocurrenciesListFragment_to_cryptocurrenciesRecyclerFragment"
+            app:destination="@id/cryptocurrenciesRecyclerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cryptocurrenciesRecyclerFragment"
+        android:name="com.example.mobileupllc.fragments.CryptocurrenciesRecyclerFragment"
+        android:label="fragment_cryptocurrencies_recycler"
+        tools:layout="@layout/fragment_cryptocurrencies_recycler" >
+        <argument
+            android:name="crypto"
+            android:defaultValue="usd"/>
+        <action
+            android:id="@+id/action_cryptocurrenciesRecyclerFragment_to_errorMessageFragment"
+            app:destination="@id/errorMessageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/errorMessageFragment"
+        android:name="com.example.mobileupllc.fragments.ErrorMessageFragment"
+        android:label="fragment_error_message"
+        tools:layout="@layout/fragment_error_message" />
+</navigation>

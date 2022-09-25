@@ -1,34 +1,62 @@
 package com.example.mobileupllc.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.example.mobileupllc.R
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 
 
 class CryptocurrenciesListFragment : Fragment() {
 
+    private lateinit var chipGroup: ChipGroup
+    private lateinit var chipUSD: Chip
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        addFragmentToFragment(CryptocurrenciesRecyclerFragment.newInstance())
-        return inflater.inflate(R.layout.fragment_cryptocurrencies_list, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_cryptocurrencies_list, container, false)
+
+        return view
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance() =
-            CryptocurrenciesListFragment().apply {
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        chipGroup = view.findViewById(R.id.chipGroupListCryp)
+        chipUSD = view.findViewById(R.id.chipUSD)
+
+        val fragment = CryptocurrenciesRecyclerFragment.newInstance()
+        val arguments = Bundle()
+
+        chipGroup.setOnCheckedChangeListener { group, checkedId ->
+            val chip: Chip? = group.findViewById(checkedId)
+            chip?.let { chipView ->
+                arguments.putString("string_key", chipView.text.toString())
+                fragment.arguments = arguments
+                addFragmentToFragment(fragment)
             }
+
+        }
+        val ids = chipGroup.checkedChipIds
+        for (id in ids) {
+            val chip = chipGroup.findViewById<Chip>(id!!)
+            arguments.putString("string_key", chip.text.toString())
+            fragment.arguments = arguments
+            addFragmentToFragment(fragment)
+        }
     }
 
-    private fun addFragmentToFragment(fragment: Fragment){
+
+    private fun addFragmentToFragment(fragment: Fragment) {
         val ft = childFragmentManager.beginTransaction()
-        ft.add(R.id.chip_host_fragment, fragment, fragment.javaClass.name)
+        ft.replace(R.id.chip_host_fragment, fragment, fragment.javaClass.name)
         ft.commitAllowingStateLoss()
+
     }
 }
