@@ -25,10 +25,31 @@
         <action
             android:id="@+id/action_cryptocurrenciesRecyclerFragment_to_errorMessageFragment"
             app:destination="@id/errorMessageFragment" />
+        <action
+            android:id="@+id/action_cryptocurrenciesRecyclerFragment_to_cryptocurrencyDescriptionFragment"
+            app:destination="@id/cryptocurrencyDescriptionFragment" />
     </fragment>
     <fragment
         android:id="@+id/errorMessageFragment"
         android:name="com.example.mobileupllc.fragments.ErrorMessageFragment"
         android:label="fragment_error_message"
         tools:layout="@layout/fragment_error_message" />
+    <fragment
+        android:id="@+id/cryptocurrencyContentDescriptionFragment"
+        android:name="com.example.mobileupllc.fragments.CryptocurrencyContentDescriptionFragment"
+        android:label="fragment_cryptocurrency_content_description"
+        tools:layout="@layout/fragment_cryptocurrency_content_description" >
+        <action
+            android:id="@+id/action_cryptocurrencyContentDescriptionFragment_to_errorMessageFragment"
+            app:destination="@id/errorMessageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cryptocurrencyDescriptionFragment"
+        android:name="com.example.mobileupllc.fragments.CryptocurrencyDescriptionFragment"
+        android:label="fragment_cryptocurrency_description"
+        tools:layout="@layout/fragment_cryptocurrency_description" >
+        <action
+            android:id="@+id/action_cryptocurrencyDescriptionFragment_to_cryptocurrencyContentDescriptionFragment"
+            app:destination="@id/cryptocurrencyContentDescriptionFragment" />
+    </fragment>
 </navigation>

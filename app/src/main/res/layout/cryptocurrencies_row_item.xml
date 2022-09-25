@@ -24,13 +24,13 @@
         <TextView
             android:id="@+id/cryptocurr_title"
             style="@style/titleCryptItemTextStyle"
-            android:layout_width="55dp"
+            android:layout_width="wrap_content"
             android:layout_height="20dp" />
 
         <TextView
             android:id="@+id/cryptocurr_symbol"
             style="@style/symbolCryptItemTextStyle"
-            android:layout_width="55dp"
+            android:layout_width="wrap_content"
             android:layout_height="20dp" />
     </LinearLayout>
 

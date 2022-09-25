@@ -6,12 +6,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Adapter
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mobileupllc.CellClickListener
 import com.example.mobileupllc.R
 import com.example.mobileupllc.adapters.CryptocurrenciesRecyclerAdapter
 import com.example.mobileupllc.api.Api
@@ -28,6 +30,8 @@ class CryptocurrenciesRecyclerFragment : Fragment() {
     private lateinit var manager: RecyclerView.LayoutManager
     private lateinit var cryptocurrenciesRecyclerAdapter: RecyclerView.Adapter<*>
     private var desired_string: String? = null
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,9 +60,8 @@ class CryptocurrenciesRecyclerFragment : Fragment() {
         val arguments = arguments
         desired_string = arguments!!.getString("string_key")
         desired_string = "eur"
-        Toast.makeText(context, "Cryptocurrencies " + desired_string, Toast.LENGTH_SHORT).show()
-        getRetrofit(desired_string)
 
+        getRetrofit(desired_string)
     }
 
     private fun getRetrofit(crypt: String?) {
@@ -80,13 +83,24 @@ class CryptocurrenciesRecyclerFragment : Fragment() {
 
                     recyclerView.apply {
                         cryptocurrenciesRecyclerAdapter =
-                            CryptocurrenciesRecyclerAdapter(desired_string, response.body()!!)
+                            CryptocurrenciesRecyclerAdapter(
+                                desired_string,
+                                response.body()!!,
+                                object : CellClickListener {
+                                    override fun onCellClickListener(cryptocurrenciesTitle: String) {
+                                        Toast.makeText(context,cryptocurrenciesTitle, Toast.LENGTH_SHORT).show()
+                                        val arguments = Bundle()
+                                        arguments.putString("string_key_crypt", cryptocurrenciesTitle)
+                                        findNavController().navigate(R.id.cryptocurrencyDescriptionFragment, arguments)
+                                    }
+                                })
                         layoutManager = manager
                         adapter = cryptocurrenciesRecyclerAdapter
                         recyclerView.adapter!!.notifyDataSetChanged()
                         progressBar.visibility = View.INVISIBLE
                     }
                 }
+
 
                 override fun onFailure(
                     call: Call<List<CryptocurrenciesRecyclerModel>>,

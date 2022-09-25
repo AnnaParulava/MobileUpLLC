@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mobileupllc.CellClickListener
 import com.example.mobileupllc.R
 import com.example.mobileupllc.model.CryptocurrenciesRecyclerModel
 import com.squareup.picasso.Picasso
@@ -19,17 +20,22 @@ import java.util.*
 import kotlin.math.roundToInt
 
 class CryptocurrenciesRecyclerAdapter(
-    private val symb: String?, private val cryptocurrenciesList: List<CryptocurrenciesRecyclerModel>) :
+    private val symb: String?, private val cryptocurrenciesList: List<CryptocurrenciesRecyclerModel>, private val cellClickListener: CellClickListener
+) :
     RecyclerView.Adapter<CryptocurrenciesRecyclerAdapter.CryptocurrenciesViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CryptocurrenciesViewHolder {
         val itemView =
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.cryptocurrencies_row_item, parent, false)
+
         return CryptocurrenciesViewHolder(symb, itemView)
     }
 
     override fun onBindViewHolder(holder: CryptocurrenciesViewHolder, position: Int) {
         holder.bind(cryptocurrenciesList[position])
+        holder.itemView.setOnClickListener {
+            cellClickListener.onCellClickListener(cryptocurrenciesList[position].name)
+        }
     }
 
     override fun getItemCount(): Int = cryptocurrenciesList.size
@@ -47,7 +53,6 @@ class CryptocurrenciesRecyclerAdapter(
                 "EUR" ->  "€"
                   else -> ""
               }
-
 
         @SuppressLint("SetTextI18n")
         fun bind(cryptocurrencies: CryptocurrenciesRecyclerModel) {
@@ -68,6 +73,7 @@ class CryptocurrenciesRecyclerAdapter(
                 .load(cryptocurrencies.image)
                 .into(tvCryptocurrIcon)
         }
+
     }
 
 
