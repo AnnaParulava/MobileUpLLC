@@ -1,18 +1,22 @@
 package com.example.mobileupllc.fragments
 
+import android.R.layout
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
+import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.mobileupllc.CellClickListener
 import com.example.mobileupllc.R
 import com.example.mobileupllc.adapters.CryptocurrenciesRecyclerAdapter
@@ -30,7 +34,7 @@ class CryptocurrenciesRecyclerFragment : Fragment() {
     private lateinit var manager: RecyclerView.LayoutManager
     private lateinit var cryptocurrenciesRecyclerAdapter: RecyclerView.Adapter<*>
     private var desired_string: String? = null
-
+    private var refreshTimes = 0
 
 
     override fun onCreateView(
@@ -61,55 +65,87 @@ class CryptocurrenciesRecyclerFragment : Fragment() {
         desired_string = arguments!!.getString("string_key")
         desired_string = "eur"
 
-        getRetrofit(desired_string)
+        getRetrofit(desired_string, 1)
+
+        val itemsSwipeToRefresh = view.findViewById<SwipeRefreshLayout>(R.id.items_swipe_to_refresh)
+
+        itemsSwipeToRefresh.setOnRefreshListener {
+            refreshTimes = +refreshTimes + 10
+            getRetrofit(desired_string, 2)
+            itemsSwipeToRefresh.isRefreshing = false
+        }
+        }
+
+    private fun customToast(){
+
+        val toastCustom = view?.findViewById<LinearLayout>(R.id.custom_toast_layout)
+        val toastLayout = layoutInflater.inflate(R.layout.custom_toast, toastCustom)
+        val toast = Toast(context)
+        toast.duration = Toast.LENGTH_LONG
+        toast.view = toastLayout
+        toast.show()
+
     }
 
-    private fun getRetrofit(crypt: String?) {
-        Api.call.getCryptoList(crypt)
-            .enqueue(object : Callback<List<CryptocurrenciesRecyclerModel>> {
-                @SuppressLint("NotifyDataSetChanged")
-                override fun onResponse(
-                    call: Call<List<CryptocurrenciesRecyclerModel>>,
-                    response: Response<List<CryptocurrenciesRecyclerModel>>
-                ) {
-                    if (!response.isSuccessful) {
-                        Log.e(
-                            "CryptocurrenciesRecycler error",
-                            "response " + response.code() + response.body()
-                        )
-                        return
+
+        private fun getRetrofit(crypt: String?, errCode: Int) {
+            Api.call.getCryptoList(crypt)
+                .enqueue(object : Callback<List<CryptocurrenciesRecyclerModel>> {
+                    @SuppressLint("NotifyDataSetChanged")
+                    override fun onResponse(
+                        call: Call<List<CryptocurrenciesRecyclerModel>>,
+                        response: Response<List<CryptocurrenciesRecyclerModel>>
+                    ) {
+                        if (!response.isSuccessful) {
+                            Log.e(
+                                "CryptocurrenciesRecycler error",
+                                "response " + response.code() + response.body()
+                            )
+                            return
+                        }
+                        Log.d("CryptocurrenciesRecycler ", "response " + response.body())
+
+                        recyclerView.apply {
+                            cryptocurrenciesRecyclerAdapter =
+                                CryptocurrenciesRecyclerAdapter(
+                                    desired_string,
+                                    response.body()!!,
+                                    object : CellClickListener {
+                                        override fun onCellClickListener(cryptocurrenciesTitle: CryptocurrenciesRecyclerModel) {
+                                            val arguments = Bundle()
+                                            arguments.putString(
+                                                "string_key_crypt_title",
+                                                cryptocurrenciesTitle.name
+                                            )
+                                            arguments.putString(
+                                                "string_key_crypt_id",
+                                                cryptocurrenciesTitle.id
+                                            )
+                                            findNavController().navigate(
+                                                R.id.cryptocurrencyDescriptionFragment,
+                                                arguments
+                                            )
+                                        }
+                                    })
+                            layoutManager = manager
+                            adapter = cryptocurrenciesRecyclerAdapter
+                            recyclerView.adapter!!.notifyDataSetChanged()
+                            progressBar.visibility = View.INVISIBLE
+                        }
                     }
-                    Log.d("CryptocurrenciesRecycler ", "response " + response.body())
 
-                    recyclerView.apply {
-                        cryptocurrenciesRecyclerAdapter =
-                            CryptocurrenciesRecyclerAdapter(
-                                desired_string,
-                                response.body()!!,
-                                object : CellClickListener {
-                                    override fun onCellClickListener(cryptocurrenciesTitle: CryptocurrenciesRecyclerModel) {
-                                        val arguments = Bundle()
-                                        arguments.putString("string_key_crypt_title", cryptocurrenciesTitle.name)
-                                        arguments.putString("string_key_crypt_id", cryptocurrenciesTitle.id)
-                                        findNavController().navigate(R.id.cryptocurrencyDescriptionFragment, arguments)
-                                    }
-                                })
-                        layoutManager = manager
-                        adapter = cryptocurrenciesRecyclerAdapter
-                        recyclerView.adapter!!.notifyDataSetChanged()
-                        progressBar.visibility = View.INVISIBLE
+
+                    override fun onFailure(
+                        call: Call<List<CryptocurrenciesRecyclerModel>>,
+                        t: Throwable
+                    ) {
+                        when(errCode){
+                            1 -> findNavController().navigate(R.id.errorMessageFragment)
+                            2 -> customToast()
+                        }
+                        t.printStackTrace()
                     }
-                }
+                })
+        }
 
-
-                override fun onFailure(
-                    call: Call<List<CryptocurrenciesRecyclerModel>>,
-                    t: Throwable
-                ) {
-                    findNavController().navigate(R.id.errorMessageFragment)
-                    t.printStackTrace()
-                }
-            })
     }
-
-}

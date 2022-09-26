@@ -7,4 +7,6 @@
     <string name="cryptocurrencies_list">Список криптовалют</string>
     <string name="description">Описание</string>
     <string name="categories">Категории</string>
+    <string name="errToast">Произошла ошибка при загрузке</string>
+
 </resources>

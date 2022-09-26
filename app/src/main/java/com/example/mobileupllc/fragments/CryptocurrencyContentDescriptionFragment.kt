@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -26,6 +27,7 @@ class CryptocurrencyContentDescriptionFragment : Fragment() {
     private lateinit var tvCryptocurrenciesDescription: TextView
     private lateinit var tvCryptoDescriptionCategoriesTitle: TextView
     private lateinit var tvCryptoDescriptionCategories: TextView
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,7 +43,9 @@ class CryptocurrencyContentDescriptionFragment : Fragment() {
         tvCryptocurrenciesDescription = view.findViewById(R.id.tvCryptocurrenciesDescription)
         tvCryptoDescriptionCategoriesTitle = view.findViewById(R.id.tvCryptoDescriptionCategoriesTitle)
         tvCryptoDescriptionCategories = view.findViewById(R.id.tvCryptoDescriptionCategories)
-            return view
+        progressBar = view.findViewById(R.id.pb_description)
+
+        return view
     }
 
     companion object {
@@ -76,6 +80,8 @@ class CryptocurrencyContentDescriptionFragment : Fragment() {
                         return
                     }
                     Log.d("CryptocurrencyDescriptionModel ", "response " + response.body())
+
+                    progressBar.visibility = View.INVISIBLE
 
                     val responseBody = response.body()!!
                     val description =  responseBody.description.toString().replace("Description(en=", "")

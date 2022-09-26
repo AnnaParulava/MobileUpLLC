@@ -7,4 +7,5 @@
     <string name="cryptocurrencies_list">List of cryptocurrencies</string>
     <string name="description">Description</string>
     <string name="categories">Categories</string>
+    <string name="errToast">An error occurred while downloading</string>
 </resources>
