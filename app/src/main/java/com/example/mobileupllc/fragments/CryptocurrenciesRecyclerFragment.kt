@@ -87,10 +87,9 @@ class CryptocurrenciesRecyclerFragment : Fragment() {
                                 desired_string,
                                 response.body()!!,
                                 object : CellClickListener {
-                                    override fun onCellClickListener(cryptocurrenciesTitle: String) {
-                                        Toast.makeText(context,cryptocurrenciesTitle, Toast.LENGTH_SHORT).show()
+                                    override fun onCellClickListener(cryptocurrenciesTitle: CryptocurrenciesRecyclerModel) {
                                         val arguments = Bundle()
-                                        arguments.putString("string_key_crypt", cryptocurrenciesTitle)
+                                        arguments.putString("string_key_crypt", cryptocurrenciesTitle.name)
                                         findNavController().navigate(R.id.cryptocurrencyDescriptionFragment, arguments)
                                     }
                                 })

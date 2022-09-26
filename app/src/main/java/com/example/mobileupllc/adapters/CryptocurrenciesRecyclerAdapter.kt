@@ -34,7 +34,7 @@ class CryptocurrenciesRecyclerAdapter(
     override fun onBindViewHolder(holder: CryptocurrenciesViewHolder, position: Int) {
         holder.bind(cryptocurrenciesList[position])
         holder.itemView.setOnClickListener {
-            cellClickListener.onCellClickListener(cryptocurrenciesList[position].name)
+            cellClickListener.onCellClickListener(cryptocurrenciesList[position])
         }
     }
 

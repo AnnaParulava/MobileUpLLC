@@ -1,6 +1,7 @@
 package com.example.mobileupllc.api
 
 import com.example.mobileupllc.model.CryptocurrenciesRecyclerModel
+import com.example.mobileupllc.model.CryptocurrencyDescriptionModel
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -26,4 +27,7 @@ object Api {
 interface JsonAPI {
     @GET("coins/markets")
     fun getCryptoList(@Query("vs_currency") vs_currency: String?): Call<List<CryptocurrenciesRecyclerModel>>
+
+    @GET("coins/{coin}")
+    fun getCryptoDescription(@Path("coin") coin: String?): Call<CryptocurrencyDescriptionModel>
 }

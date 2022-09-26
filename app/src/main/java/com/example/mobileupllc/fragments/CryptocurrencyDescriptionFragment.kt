@@ -1,12 +1,12 @@
 package com.example.mobileupllc.fragments
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.mobileupllc.R
 
@@ -19,10 +19,11 @@ private lateinit var tvCryptocurrenciesTitle: TextView
         savedInstanceState: Bundle?
     ): View? {
         val view: View =inflater.inflate(R.layout.fragment_cryptocurrency_description, container, false)
-        //      imgCryptocurrenciesTitle.setColorFilter(Color.BLACK)
+        tvCryptocurrenciesTitle = view.findViewById(R.id.tvCryptocurrenciesTitle)
+        imgCryptocurrenciesTitle = view.findViewById(R.id.imgCryptocurrenciesTitle)
+
         val arguments = arguments
         val cryptTitle = arguments?.getString("string_key_crypt")
-        tvCryptocurrenciesTitle = view.findViewById(R.id.tvCryptocurrenciesTitle)
         tvCryptocurrenciesTitle.text = cryptTitle
         return view
     }
@@ -34,4 +35,18 @@ private lateinit var tvCryptocurrenciesTitle: TextView
 
             }
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val fragment = CryptocurrencyContentDescriptionFragment.newInstance()
+        addFragmentToFragment(fragment)
+    }
+
+    private fun addFragmentToFragment(fragment: Fragment) {
+        val ft = childFragmentManager.beginTransaction()
+        ft.add(R.id.title_host_fragment, fragment, fragment.javaClass.name)
+        ft.commit()
+
+    }
+
 }
