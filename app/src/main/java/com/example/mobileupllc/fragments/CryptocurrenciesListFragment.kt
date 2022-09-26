@@ -36,9 +36,11 @@ class CryptocurrenciesListFragment : Fragment() {
         chipGroup.setOnCheckedChangeListener { group, checkedId ->
             val chip: Chip? = group.findViewById(checkedId)
             chip?.let { chipView ->
-                arguments.putString("string_key", chipView.text.toString())
-                fragment.arguments = arguments
-                addFragmentToFragment(fragment)
+                val fragment1 = CryptocurrenciesRecyclerFragment.newInstance()
+                val arguments1 = Bundle()
+                arguments1.putString("string_key", chipView.text.toString())
+                fragment1.arguments = arguments1
+                addFragmentToFragment(fragment1)
             }
 
         }

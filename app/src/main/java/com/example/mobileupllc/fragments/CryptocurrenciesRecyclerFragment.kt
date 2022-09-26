@@ -63,7 +63,7 @@ class CryptocurrenciesRecyclerFragment : Fragment() {
 
         val arguments = arguments
         desired_string = arguments!!.getString("string_key")
-        desired_string = "eur"
+       // desired_string = "eur"
 
         getRetrofit(desired_string, 1)
 

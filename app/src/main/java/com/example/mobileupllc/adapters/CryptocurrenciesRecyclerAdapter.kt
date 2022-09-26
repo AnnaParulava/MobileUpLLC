@@ -64,9 +64,11 @@ class CryptocurrenciesRecyclerAdapter(
             dformat.roundingMode = RoundingMode.DOWN
             val resultFormat = dformat.format(percent).replace(',', '.')
 
-            tvCurrentTitle.text =  cryptocurrencies.name
+            val resultFormatPrice = "%,.2f".format(Locale.ENGLISH,cryptocurrencies.current_price)
+
+                tvCurrentTitle.text =  cryptocurrencies.name
             tvCryptocurrSymbol.text = cryptocurrencies.symbol.uppercase(Locale.getDefault())
-            tvCurrentPrice.text = getSymb() + " " + cryptocurrencies.current_price.toString()
+            tvCurrentPrice.text = getSymb() + " " +resultFormatPrice
             tvChangePercentage.text = "$resultFormat%"
 
             Picasso.get()
