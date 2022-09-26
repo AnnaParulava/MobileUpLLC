@@ -89,7 +89,8 @@ class CryptocurrenciesRecyclerFragment : Fragment() {
                                 object : CellClickListener {
                                     override fun onCellClickListener(cryptocurrenciesTitle: CryptocurrenciesRecyclerModel) {
                                         val arguments = Bundle()
-                                        arguments.putString("string_key_crypt", cryptocurrenciesTitle.name)
+                                        arguments.putString("string_key_crypt_title", cryptocurrenciesTitle.name)
+                                        arguments.putString("string_key_crypt_id", cryptocurrenciesTitle.id)
                                         findNavController().navigate(R.id.cryptocurrencyDescriptionFragment, arguments)
                                     }
                                 })

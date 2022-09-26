@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.mobileupllc.R
 import com.example.mobileupllc.api.Api
 import com.example.mobileupllc.model.CryptocurrencyDescriptionModel
+import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,9 +21,11 @@ import retrofit2.Response
 
 class CryptocurrencyContentDescriptionFragment : Fragment() {
 
-//    private lateinit var imgCryptocurrDescription: ImageView
-//    private lateinit var tvCryptocurrenciesDescription: TextView
-//    private lateinit var tvCryptocurrenciesDescription: TextView
+    private lateinit var imgCryptocurrDescription: ImageView
+    private lateinit var tvCryptocurrenciesDescriptionTitle: TextView
+    private lateinit var tvCryptocurrenciesDescription: TextView
+    private lateinit var tvCryptoDescriptionCategoriesTitle: TextView
+    private lateinit var tvCryptoDescriptionCategories: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,9 +36,11 @@ class CryptocurrencyContentDescriptionFragment : Fragment() {
             container,
             false
         )
-//        tvCryptocurrenciesDescription = view.findViewById(R.id.imgCryptocurrDescription)
-//        tvCryptocurrenciesDescription = view.findViewById(R.id.tvCryptocurrenciesDescription)
-//        tvCryptocurrenciesDescription = view.findViewById(R.id.tvCryptocurrenciesDescription)
+        imgCryptocurrDescription = view.findViewById(R.id.imgCryptocurrDescription)
+        tvCryptocurrenciesDescriptionTitle = view.findViewById(R.id.tvCryptocurrenciesDescriptionTitle)
+        tvCryptocurrenciesDescription = view.findViewById(R.id.tvCryptocurrenciesDescription)
+        tvCryptoDescriptionCategoriesTitle = view.findViewById(R.id.tvCryptoDescriptionCategoriesTitle)
+        tvCryptoDescriptionCategories = view.findViewById(R.id.tvCryptoDescriptionCategories)
             return view
     }
 
@@ -51,11 +56,13 @@ class CryptocurrencyContentDescriptionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getRetrofit()
+        val arguments = arguments
+        val cryptId = arguments?.getString("description_key_crypt")
+        getRetrofit(cryptId)
     }
 
-    private fun getRetrofit() {
-        Api.call.getCryptoDescription("bitcoin")
+    private fun getRetrofit(cryptId: String?) {
+        Api.call.getCryptoDescription(cryptId)
             .enqueue(object : Callback<CryptocurrencyDescriptionModel> {
                 override fun onResponse(
                     call: Call<CryptocurrencyDescriptionModel>,
@@ -72,7 +79,18 @@ class CryptocurrencyContentDescriptionFragment : Fragment() {
 
                     val responseBody = response.body()!!
                     val description =  responseBody.description.toString().replace("Description(en=", "")
+                    val categories = responseBody.categories.toString().replace("[", "").replace("]", "")
+                    val image = responseBody.image.toString().replace(")", "").replace("Image(large=", "")
+
+
+                    Picasso.get()
+                        .load(image)
+                        .into(imgCryptocurrDescription)
+
+                    tvCryptocurrenciesDescriptionTitle.text = activity!!.getString(R.string.description)
                     tvCryptocurrenciesDescription.text = description
+                    tvCryptoDescriptionCategoriesTitle.text = activity!!.getString(R.string.categories)
+                    tvCryptoDescriptionCategories.text = categories
 
                 }
 
