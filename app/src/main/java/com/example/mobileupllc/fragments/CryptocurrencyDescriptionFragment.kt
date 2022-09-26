@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.mobileupllc.R
 
 class CryptocurrencyDescriptionFragment : Fragment() {
@@ -49,6 +50,10 @@ class CryptocurrencyDescriptionFragment : Fragment() {
 
         fragment.arguments = argumentsCrypt
         addFragmentToFragment(fragment)
+
+        imgCryptocurrenciesTitle.setOnClickListener{
+            findNavController().navigate(R.id.cryptocurrenciesListFragment)
+        }
     }
 
     private fun addFragmentToFragment(fragment: Fragment) {
